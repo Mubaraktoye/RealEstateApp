@@ -97,7 +97,7 @@ namespace RealEstateApp.Services.Implementations
 		{
 			try
 			{
-				var dataResponse = _unitOfWork.GetRepository<Rent>().GetFirstOrDefault(x => x.Id == id, null, null, false);
+				var dataResponse = _unitOfWork.GetRepository<Rent>().GetFirstOrDefault(x => x.Id == id, null, include: c => c.Include(i => i.CreatedBy).Include(i => i.ModifiedBy), false);
 				var mappedResponse = _mapper.Map<RestResponse>(dataResponse);
 
 				return new RentResponseViewModel
