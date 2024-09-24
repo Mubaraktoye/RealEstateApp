@@ -7,4 +7,5 @@ public class RentLog : BaseEntity
 	public string VisitorName { get; set; }
 	public string VisitorPhoneNumber { get; set; }
 	public string? VisitorEmail { get; set; }
+	public bool IsContacted {  get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace RealEstateApp.Model.Data
+﻿using RealEstateApp.Model.Enum;
+
+namespace RealEstateApp.Model.Data
 {
 	public class Purchase : BaseEntity
 	{
@@ -12,7 +14,7 @@
 		public string Status { get; set; }
 		public bool IsVerified { get; set; }
 		public string Description { get; set; }
-		public bool IsAdminApproved { get; set; }
+		public ApprovalType ApprovalType { get; set; }
 		public string Measurement { get; set; }
 	}
 }

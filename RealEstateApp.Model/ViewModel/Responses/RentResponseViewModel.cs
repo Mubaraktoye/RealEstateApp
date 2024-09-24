@@ -31,4 +31,5 @@ namespace RealEstateApp.Model.ViewModel.Responses
         public UserResponseModel CreatedBy { get; set; }
         public UserResponseModel? ModifiedBy { get; set; }
     }
+
 }
