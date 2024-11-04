@@ -22,7 +22,8 @@ namespace RealEstateApp.Services.Implementations
                 CreatedDate = DateTime.Now,
                 ReferenceId = refId,
                 PictureType = type,
-                Image = url
+                Image = url,
+                CreatedById = Guid.Parse("A2B826DC-88CF-415C-8E07-08DCFCC05438")
             };
 
             _unitOfWork.GetRepository<Picture>().Insert(picture);

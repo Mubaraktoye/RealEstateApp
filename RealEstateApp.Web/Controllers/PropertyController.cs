@@ -80,7 +80,7 @@ namespace RealEstateApp.Web.Controllers
                             Status = "Open",
                             Price = model.PropertyPrice
 
-                        }, Guid.Parse("08D7C5CF-EAD5-4F0B-8E06-08DCFCC05438"));
+                        }, Guid.Parse("A2B826DC-88CF-415C-8E07-08DCFCC05438"));
 
                         return Json(new
                         {
