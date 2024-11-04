@@ -11,7 +11,8 @@ namespace RealEstateApp.Services.Interfaces
 	public interface IUserService
 	{
 		Task<BaseResponseModel> CreateUser(UserRequestViewModel model);
-		Task<BaseResponseModel> UpdateUser(UserUpdateRequestModel model);
+		Task<LoginResponseModel> LoginUser(UserLoginViewModel model);
+        Task<BaseResponseModel> UpdateUser(UserUpdateRequestModel model);
 		Task<BaseResponseModel> UpdatePassword(PasswordUpdateRequestModel model);
 	}
 }

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RealEstateApp.Migrations\RealEstateApp.Migrations.csproj" />
+    <ProjectReference Include="..\RealEstateApp.Services\RealEstateApp.Services.csproj" />
   </ItemGroup>
 
 </Project>

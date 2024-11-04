@@ -11,7 +11,7 @@
             <h1 class="display-5 animated fadeIn mb-4">Property List</h1>
             <nav aria-label="breadcrumb animated fadeIn">
                 <ol class="breadcrumb text-uppercase">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Pages</a></li>
                     <li class="breadcrumb-item text-body active" aria-current="page">Property List</li>
                 </ol>
@@ -70,7 +70,7 @@
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                 <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                     <li class="nav-item me-2">
-                        <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">Featured</a>
+                        <a asp-controller="Property" asp-action="Add" class="btn btn-outline-primary active">Add Property</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">For Sell</a>

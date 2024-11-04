@@ -17,4 +17,13 @@ namespace RealEstateApp.Model.ViewModel.Responses
         public AccessType AccessType { get; set; }
         public ApprovalType ApprovalType { get; set; }
     }
+
+    public class LoginResponseModel
+    {
+        public bool Status { get; set; }
+        public string Message { get; set; }
+        public UserResponseModel Data { get; set; }
+        public string Token { get; set; }
+        public  string RefreshToken { get; set; }
+    }
 }

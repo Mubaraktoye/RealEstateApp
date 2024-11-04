@@ -16,4 +16,12 @@ namespace RealEstateApp.Model.ViewModel.Requests
 		[Required]
 		public string Password { get; set; }
 	}
+
+    public class UserLoginViewModel
+    {
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
+    }
 }

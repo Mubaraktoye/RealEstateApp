@@ -1,6 +1,7 @@
 using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using RealEstateApp.Migrations;
+using RealEstateApp.Services.DIExtention;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,12 @@ builder.Services.AddControllersWithViews();
 
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<RealEstateAppContext>(options => options.UseSqlServer(configuration.GetConnectionString("DbServerConnection"))).AddUnitOfWork<RealEstateAppContext>();
+
+//========= Initilizing auto mapper =============
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+//========= Injected Services =============
+builder.Services.AddInjectedServices();
 
 var app = builder.Build();
 

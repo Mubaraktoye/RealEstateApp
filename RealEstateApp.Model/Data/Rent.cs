@@ -14,6 +14,5 @@ public class Rent : BaseEntity
 	public bool IsVerified { get; set; }
 	public string Description { get; set; }
 	public ApprovalType ApprovalType { get; set; }
-
 }
 

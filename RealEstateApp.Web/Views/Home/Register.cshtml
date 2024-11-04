@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_OnboardLayout.cshtml";
+    //var returnUrl = @Context.Request.Query["returnUrl"];
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+
+        <div class="row g-4">
+            <div class="col-md-12">
+                <div class="wow fadeInUp" data-wow-delay="0.5s">
+                    <p class="mb-4">Please fill this form to add a property.</p>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstname" placeholder="Firstname">
+                                    <label for="name">Firstname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastname" placeholder="Lastname">
+                                    <label for="name">Lastname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <label for="name">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="phonenumber" placeholder="Phonenumber">
+                                    <label for="name">Phonenumber</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <label for="name">Password</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password">
+                                    <label for="name">Confirm Password</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="btn btn-primary w-100 py-3" onclick="OnSubmitRegisterRequest()" type="submit">Register</div>
+                            </div>
+                            <div class="col-auto align-content-center">
+                                <a class="text-muted" asp-area="" asp-controller="Home" asp-action="Login">
+                                    I already have an account.
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        function OnSubmitRegisterRequest() {
+
+            var firstname = $("#firstname").val();
+            var lastname = $("#lastname").val();
+            var email = $("#email").val();
+            var phonenumber = $("#phonenumber").val();
+            var password = $("#password").val();
+            var confirmpassword = $("#confirmpassword").val();
+
+            if (firstname == null || lastname == null || email == null || phonenumber == null || password == null) {
+                toastr.error("a required filed is missing");
+            }
+            else if (password != confirmpassword) {
+                toastr.error("password do not match");
+            }
+            else {
+                SubmitRegisterForm( firstname, lastname, email, phonenumber, password);
+            }
+        }
+
+        function SubmitRegisterForm(firstname, lastname, email, phonenumber, password) {
+            $.ajax({
+                url: '@Url.Action("RegisterUser", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                data: { firstname: firstname, lastname: lastname, email: email, phonenumber: phonenumber, password: password },
+                success: function (response) {
+                    if (response.status) {
+                        toastr.success(response?.message);
+                        //location.reload();
+                    }
+                    else {
+                        toastr.warning(response?.message);
+                    }
+                    return;
+                }, error: function () {
+                    //alerty("danger", "Opps", "request Failed");
+                    console.log("Request Failed");
+                }
+            });
+        }
+
+
+    </script>
+}

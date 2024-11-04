@@ -35,7 +35,7 @@ namespace RealEstateApp.Services.Implementations
 			{
 				Rent rentData = new Rent
 				{
-					Id = Guid.NewGuid(),
+					Id = model.Id,
 					CreatedDate = DateTime.Now,
 					CreatedById = createdBy,
 					Location = model.Location,

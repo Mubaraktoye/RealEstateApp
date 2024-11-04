@@ -16,42 +16,42 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-control" name="propertyaction" id="propertyaction">
+                                    <select class="form-control" name="propertyaction" id="property-action">
                                         <option autofocus>Choose Action</option>
-                                        <option value="rent">For Rent</option>
-                                        <option value="sell">For Sell</option>
+                                        <option value="1">For Rent</option>
+                                        <option value="2">For Sell</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Property Title">
+                                    <input type="text" class="form-control" id="property-title" placeholder="Property Title">
                                     <label for="name">Title</label>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Property Location">
+                                    <input type="text" class="form-control" id="property-location" placeholder="Property Location">
                                     <label for="name">Property Location</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Landmark">
+                                    <input type="text" class="form-control" id="property-landmark" placeholder="Landmark">
                                     <label for="name">Landmark</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="price" placeholder="No of Rooms">
+                                    <input type="number" class="form-control" id="property-rooms" placeholder="No of Rooms">
                                     <label for="email">No of Rooms</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="price" placeholder="Price">
+                                    <input type="number" class="form-control" id="property-price" placeholder="Price">
                                     <label for="email">Price</label>
                                 </div>
                             </div>
@@ -59,31 +59,24 @@
                             <div class="col-md-6">
                                 
                                 <div class="form-floating">
-                                    <input type="file" class="form-control" id="picture" placeholder="Picture" multiple="multiple" accept=".png, .jpg, .jpeg">
+                                    <input type="file" class="form-control" id="property-pictures" accept=".png, .jpg, .jpeg" multiple>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Other Description" id="message" style="height: 150px"></textarea>
+                                    <textarea class="form-control" placeholder="Other Description" id="property-description" style="height: 150px"></textarea>
                                     <label for="message">Description</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="isgated">Click here if the property is fenced/gated</label>
                                 <div class="form-floating">
-                                    <input type="checkbox" id="price" placeholder="Is Gated">
+                                    <input name="isgated" type="checkbox" id="property-is-gated" placeholder="Is Gated">
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="isgated">Click here if the property is for sell and not rent</label>
-                                <div class="form-floating">
-                                    <input type="checkbox" id="rentorsell" placeholder="">
-                                </div>
-                            </div>
-                            
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Add Property</button>
+                                <div class="btn btn-primary w-100 py-3" onclick="OnSubmitPropertyRequest()" type="submit">Add Property</div>
                             </div>
                         </div>
                     </form>
@@ -484,3 +477,73 @@
     </div>
 </div>
 <!-- Property List End -->
+
+@section Scripts{
+    <script type="text/javascript">
+
+        // function RunRecallFormValidation(){
+
+        // }
+
+        function OnSubmitPropertyRequest() {
+
+            var propertyType = $("#property-action").val();
+            var propertyGated = $("#property-is-gated").prop("checked");
+            var propertyTitle = $("#property-title").val();
+            var propertyDescription = $("#property-description").val();
+            var propertyRooms = $("#property-rooms").val();
+            var propertyPrice = $("#property-price").val();
+            var propertyLocation = $("#property-location").val();
+            var propertyLandmark = $("#property-landmark").val();
+            var propertyPics = document.getElementById('property-pictures').files;
+
+            if (propertyType == 0 || propertyTitle == null || propertyDescription == null || propertyPrice == 0 || propertyLocation == null || propertyLandmark == null) {
+                toastr.error("a required filed is missing");
+            }
+            else{
+                var formData = new FormData();
+                formData.append("propertyType", propertyType);
+                formData.append("propertyGated", propertyGated);
+                formData.append("propertyTitle", propertyTitle);
+                formData.append("propertyDescription", propertyDescription);
+                formData.append("propertyRooms", propertyRooms);
+                formData.append("propertyPrice", propertyPrice);
+                formData.append("propertyLocation", propertyLocation);
+                formData.append("propertyLandmark", propertyLandmark);
+                for (var i = 0; i != propertyPics.length; i++) {
+                    formData.append("propertyPics", propertyPics[i]);
+                    //formData.append("files", files[i]);
+                }
+                
+                SubmitPropertyForm(formData);
+            }
+        }
+
+        function SubmitPropertyForm(data) {
+            $.ajax({
+                url: '@Url.Action("AddProperty", "Property")',
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                data: data,
+                success: function (response) {
+                    if (response.status) {
+                        toastr.success(response?.message);
+                        //location.reload();
+                    }
+                    else {
+                        toastr.warning(response?.message);
+                    }
+                    return;
+                }, error: function () {
+                    //alerty("danger", "Opps", "request Failed");
+                    console.log("Request Failed");
+                }
+            });
+        }
+
+
+    </script>
+}

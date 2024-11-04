@@ -9,7 +9,9 @@ namespace RealEstateApp.Core.Constants
 	public class Response
 	{
 		public const string Successful = "Successful!";
-		public const string Failed = "Request Failed, Please Try Again.";
+		public const string RegisteredSuccessfully = "User is registered successfully!";
+		public const string LoginFailed = "Login Failed";
+        public const string Failed = "Request Failed, Please Try Again.";
 		public const string NotFound = "Record Not Found";
 
 	}
